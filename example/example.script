@@ -1,0 +1,4 @@
+local kaios = require "kaios.kaios"
+
+function init(self)
+end
