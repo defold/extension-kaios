@@ -1,50 +1,6 @@
 <html>
 <head>
-<script>
-
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-
-window.defold = {
-	audioCtx: new AudioContext(),
-	audioBuffers: {},
-
-	fetchFile: async function(filepath) {
-		const response = await fetch(filepath);
-		const arrayBuffer = await response.arrayBuffer();
-		const audioBuffer = await window.defold.audioCtx.decodeAudioData(arrayBuffer);
-		return audioBuffer;
-	},
-
-	loadFile: function(filePath) {
-		const audioBuffer = await window.defold.fetchFile(filePath);
-		return audioBuffer;
-	},
-
-	playAudioBuffer: function(audioBuffer) {
-		// check if context is in suspended state (autoplay policy)
-		if (defold.audioCtx.state === 'suspended') {
-			window.defold.audioCtx.resume();
-		}
-		const bufferSource = window.defold.audioCtx.createBufferSource();
-		bufferSource.buffer = audioBuffer;
-		bufferSource.connect(window.defold.audioCtx.destination)
-		bufferSource.start();
-		return bufferSource;
-	},
-	playAudioFromURL: function(url) {
-		if (window.defold.audioBuffers[url]) {
-			window.defold.playAudioBuffer(window.defold.audioBuffers[url]);
-		}
-		else {
-			window.defold.loadFile(url).then((audioBuffer) => {
-				window.defold.audioBuffers[url] = audioBuffer;
-				window.defold.playAudioBuffer(audioBuffers[url]);
-			});
-		}
-	}
-};
-
-</script>
+<script src="Defold.js"></script>
 </head>
 <body/>
 </html>
