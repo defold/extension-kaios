@@ -12,7 +12,7 @@ end
 
 
 function kaios.play_sound(file)
-	if html5 then html5.run("defold.playAudioFromURL('" .. sys.get_application_path() .. "/" .. file .. "');") end
+	if html5 then html5.run("window.defold.playAudioFromURL('" .. sys.get_application_path() .. "/" .. file .. "');") end
 end
 
 return kaios
