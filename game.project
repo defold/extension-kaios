@@ -1,6 +1,7 @@
 [project]
 title = KaiOS
 version = 1.0
+bundle_resources = bundle
 
 [input]
 game_binding = /input/game.input_bindingc
@@ -20,4 +21,3 @@ include_dirs = kaios
 
 [script]
 shared_state = 1
-

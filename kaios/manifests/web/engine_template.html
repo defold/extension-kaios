@@ -1,0 +1,50 @@
+<html>
+<head>
+<script type="text/javascript">
+// for cross browser compatibility
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
+
+var audioBuffers = {};
+
+async function kaios_getFile(filepath) {
+	const response = await fetch(filepath);
+	const arrayBuffer = await response.arrayBuffer();
+	const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+	return audioBuffer;
+}
+
+async function kaios_loadFile(filePath) {
+	const audioBuffer = await kaios_getFile(filePath);
+	return audioBuffer;
+}
+
+function kaios_playAudioBuffer(audioBuffer) {
+	// check if context is in suspended state (autoplay policy)
+	if (audioCtx.state === 'suspended') {
+		audioCtx.resume();
+	}
+	const bufferSource = audioCtx.createBufferSource();
+	bufferSource.buffer = audioBuffer;
+	bufferSource.connect(audioCtx.destination)
+	bufferSource.start();
+	return bufferSource;
+}
+
+
+function kaios_playAudioFromURL(url) {
+	if (audioBuffers[url]) {
+		kaios_playAudioBuffer(audioBuffers[url]);
+	}
+	else {
+		kaios_loadFile(url).then((audioBuffer) => {
+			audioBuffers[url] = audioBuffer;
+			kaios_playAudioBuffer(audioBuffers[url]);
+		});
+	}
+}
+
+</script>
+</head>
+<body/>
+</html>
