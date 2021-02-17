@@ -1,48 +1,48 @@
 <html>
 <head>
 <script type="text/javascript">
-// for cross browser compatibility
+
 const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
 
-var audioBuffers = {};
+var defold = {
+	audioCtx: new AudioContext(),
+	audioBuffers: {},
 
-async function kaios_getFile(filepath) {
-	const response = await fetch(filepath);
-	const arrayBuffer = await response.arrayBuffer();
-	const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-	return audioBuffer;
-}
+	fetchFile: async function(filepath) {
+		const response = await fetch(filepath);
+		const arrayBuffer = await response.arrayBuffer();
+		const audioBuffer = await defold.audioCtx.decodeAudioData(arrayBuffer);
+		return audioBuffer;
+	},
 
-async function kaios_loadFile(filePath) {
-	const audioBuffer = await kaios_getFile(filePath);
-	return audioBuffer;
-}
+	loadFile: function(filePath) {
+		const audioBuffer = await defold.fetchFile(filePath);
+		return audioBuffer;
+	},
 
-function kaios_playAudioBuffer(audioBuffer) {
-	// check if context is in suspended state (autoplay policy)
-	if (audioCtx.state === 'suspended') {
-		audioCtx.resume();
+	playAudioBuffer: function(audioBuffer) {
+		// check if context is in suspended state (autoplay policy)
+		if (defold.audioCtx.state === 'suspended') {
+			defold.audioCtx.resume();
+		}
+		const bufferSource = defold.audioCtx.createBufferSource();
+		bufferSource.buffer = audioBuffer;
+		bufferSource.connect(defold.audioCtx.destination)
+		bufferSource.start();
+		return bufferSource;
+	},
+	playAudioFromURL: function(url) {
+		if (defold.audioBuffers[url]) {
+			defold.playAudioBuffer(defold.audioBuffers[url]);
+		}
+		else {
+			defold.loadFile(url).then((audioBuffer) => {
+				defold.audioBuffers[url] = audioBuffer;
+				defold.playAudioBuffer(audioBuffers[url]);
+			});
+		}
 	}
-	const bufferSource = audioCtx.createBufferSource();
-	bufferSource.buffer = audioBuffer;
-	bufferSource.connect(audioCtx.destination)
-	bufferSource.start();
-	return bufferSource;
-}
-
-
-function kaios_playAudioFromURL(url) {
-	if (audioBuffers[url]) {
-		kaios_playAudioBuffer(audioBuffers[url]);
-	}
-	else {
-		kaios_loadFile(url).then((audioBuffer) => {
-			audioBuffers[url] = audioBuffer;
-			kaios_playAudioBuffer(audioBuffers[url]);
-		});
-	}
-}
+};
 
 </script>
 </head>
