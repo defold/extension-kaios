@@ -2,7 +2,7 @@ local info = sys.get_sys_info()
 
 if not info.user_agent:find("KAIOS") then
 	kaios = nil
-	return
+	return false
 end
 
 function kaios.exit()
