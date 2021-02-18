@@ -4,16 +4,14 @@ var defold = {
 	audioCtx: new AudioContext(),
 	audioBuffers: {},
 
-	fetchFile: async function(filepath) {
-		const response = await fetch(filepath);
-		const arrayBuffer = await response.arrayBuffer();
-		const audioBuffer = await defold.audioCtx.decodeAudioData(arrayBuffer);
-		return audioBuffer;
-	},
-
-	loadFile: function(filePath) {
-		const audioBuffer = await defold.fetchFile(filePath);
-		return audioBuffer;
+	loadSoundFile: function(filepath) {
+		return fetch(filepath).then(function(response) {
+			return response.arrayBuffer();
+		}).then(function(arrayBuffer) {
+			return defold.audioCtx.decodeAudioData(arrayBuffer);
+		}).catch(function(reason) {
+			console.log(reason);
+		});
 	},
 
 	playAudioBuffer: function(audioBuffer) {
@@ -33,13 +31,12 @@ var defold = {
 			defold.playAudioBuffer(defold.audioBuffers[url]);
 		}
 		else {
-			defold.loadFile(url).then((audioBuffer) => {
+			defold.loadSoundFile(url).then(function(audioBuffer) {
 				defold.audioBuffers[url] = audioBuffer;
-				defold.playAudioBuffer(audioBuffers[url]);
+				defold.playAudioBuffer(defold.audioBuffers[url]);
+			}).catch(function(reason) {
+				console.log(reason);
 			});
 		}
 	}
 };
-
-console.log("script1");
-console.log(defold);

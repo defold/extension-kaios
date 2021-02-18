@@ -3,8 +3,34 @@
 
 #include <dmsdk/sdk.h>
 
+#if defined(DM_PLATFORM_HTML5)
+
+#include <emscripten/emscripten.h> // for EM_ASM
+
+static int kaios_PlaySound(lua_State* L)
+{
+	DM_LUA_STACK_CHECK(L, 0);
+
+    const char* filepath = luaL_checkstring(L, 1);
+
+    EM_ASM({ defold.playAudioFromURL(Module.UTF8ToString($0)); }, filepath);
+
+	return 0;
+}
+
+static int kaios_Exit(lua_State* L)
+{
+	DM_LUA_STACK_CHECK(L, 0);
+
+    EM_ASM(window.close());
+
+	return 0;
+}
+
 static const luaL_reg Module_methods[] =
 {
+    {"exit", kaios_Exit},
+    {"play_sound", kaios_PlaySound},
     {0, 0}
 };
 
@@ -18,6 +44,8 @@ static void LuaInit(lua_State* L)
     assert(top == lua_gettop(L));
 }
 
+#endif // defined(DM_PLATFORM_HTML5)
+
 dmExtension::Result AppInitializeKaiOSExtension(dmExtension::AppParams* params)
 {
     return dmExtension::RESULT_OK;
@@ -25,7 +53,12 @@ dmExtension::Result AppInitializeKaiOSExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeKaiOSExtension(dmExtension::Params* params)
 {
-    LuaInit(params->m_L);
+    #if defined(DM_PLATFORM_HTML5)
+	LuaInit(params->m_L);
+	#else
+	printf("Extension %s is not supported\n", MODULE_NAME);
+	#endif
+
     return dmExtension::RESULT_OK;
 }
 
