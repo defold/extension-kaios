@@ -27,6 +27,7 @@ var defold = {
 		bufferSource.start();
 		return bufferSource;
 	},
+
 	playAudioFromURL: function(url) {
 		if (defold.audioBuffers[url]) {
 			defold.playAudioBuffer(defold.audioBuffers[url]);
@@ -39,3 +40,6 @@ var defold = {
 		}
 	}
 };
+
+console.log("script1");
+console.log(defold);
