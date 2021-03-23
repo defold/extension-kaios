@@ -1,5 +1,5 @@
 # extension-kaios
-Defold native extension for use with KaiOS. See also [extension-kaiads](https://github.com/refold/extension-kaios) for KaiAds integration.
+Defold native extension for use with KaiOS. See also [extension-kaiads](https://github.com/defold/extension-kaios) for KaiAds integration.
 
 ## Disclaimer
 Experimental code for KaiOS. No support is provided! Code can change at any time.
