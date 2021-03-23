@@ -1,5 +1,3 @@
-local kaios = require "kaios.kaios"
-
 function init(self)
 	msg.post(".", "acquire_input_focus")
 end
