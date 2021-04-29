@@ -1,0 +1,29 @@
+{
+    "default_locale": "en-US",
+    "description": "Defold for KaiOS example.",
+    "developer": {
+        "name": "Defold",
+        "url": "https://www.defopld.com"
+    },
+    "fullscreen": "true",
+    "icons": {
+        "112": "/icons/icon_112.png",
+        "56": "/icons/icon_56.png"
+    },
+    "launch_path": "/index.html",
+    "locales": {
+        "en-US": {
+            "description": "Defold for KaiOS example.",
+            "name": "Defold KaiOS",
+            "subtitle": ""
+        }
+    },
+    "name": "Defold KaiOS",
+    "precompile": [
+        "DefoldKaiOS_asmjs.js",
+        "dmloader.js",
+        "Defold.js"
+    ],
+    "type": "web",
+    "version": "1.6.0"
+}

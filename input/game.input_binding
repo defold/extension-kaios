@@ -24,11 +24,11 @@ key_trigger {
 }
 key_trigger {
   input: KEY_SPACE
-  action: "jump"
+  action: "action"
 }
 key_trigger {
   input: KEY_5
-  action: "jump"
+  action: "action"
 }
 key_trigger {
   input: KEY_UP
@@ -64,5 +64,17 @@ key_trigger {
 }
 key_trigger {
   input: KEY_ENTER
-  action: "jump"
+  action: "action"
+}
+key_trigger {
+  input: KEY_F1
+  action: "leftsoftkey"
+}
+key_trigger {
+  input: KEY_F2
+  action: "rightsoftkey"
+}
+key_trigger {
+  input: KEY_MENU
+  action: "call"
 }

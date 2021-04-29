@@ -1,5 +1,5 @@
 [project]
-title = KaiOS
+title = DefoldKaiOS
 version = 1.0
 bundle_resources = bundle
 
@@ -21,3 +21,11 @@ include_dirs = kaios
 
 [script]
 shared_state = 1
+
+[html5]
+htmlfile = /kaios/engine_template.html
+
+[physics]
+gravity_y = 0.0
+scale = 0.2
+
