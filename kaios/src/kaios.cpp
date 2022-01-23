@@ -85,7 +85,32 @@ namespace dmKaiOS
 
 		const char* filepath = luaL_checkstring(L, 1);
 
-		EM_ASM({ defold.playAudioFromURL(Module.UTF8ToString($0)); }, filepath);
+		bool loop = false;
+		if (lua_istable(L, 2))
+		{
+			// push ref of table on stack
+			lua_pushvalue(L, 2);
+
+			lua_getfield(L, -1, "loop");
+			loop = lua_isboolean(L, -1) ? lua_toboolean(L, -1) : false;
+			lua_pop(L, 1);
+
+			// pop table again
+			lua_pop(L, 1);
+		}
+
+		EM_ASM({ defold.playAudioFromURL(Module.UTF8ToString($0), $1); }, filepath, loop);
+
+		return 0;
+	}
+
+	static int KaiOS_StopSound(lua_State* L)
+	{
+		DM_LUA_STACK_CHECK(L, 0);
+
+		const char* filepath = luaL_checkstring(L, 1);
+
+		EM_ASM({ defold.stopAudioFromURL(Module.UTF8ToString($0)); }, filepath);
 
 		return 0;
 	}
@@ -103,6 +128,7 @@ namespace dmKaiOS
 	{
 		{"exit", KaiOS_Exit},
 		{"play_sound", KaiOS_PlaySound},
+		{"stop_sound", KaiOS_StopSound},
 		{0, 0}
 	};
 
