@@ -1,8 +1,6 @@
 # KaiOS extension
 Defold native extension for use with KaiOS. See also [extension-kaiads](https://github.com/defold/extension-kaios) for KaiAds integration.
 
-**Disclaimer** The extension contains experimental code for KaiOS. No support is provided! Code can change at any time as the extension uis developed.
-
 ## KaiOS HTML template
 The extension provides a [modified version](/kaios/engine_template.html) of the default `engine_template.html` from builtins. The modifications are:
 
