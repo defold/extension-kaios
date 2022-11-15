@@ -1,5 +1,5 @@
 # KaiOS extension
-Defold native extension for use with KaiOS. See also [extension-kaiads](https://github.com/defold/extension-kaios) for KaiAds integration.
+Defold native extension for use with KaiOS. See also [extension-kaiads](https://github.com/defold/extension-kaiads) for KaiAds integration.
 
 ## KaiOS HTML template
 The extension provides a [modified version](/kaios/engine_template.html) of the default `engine_template.html` from builtins. The modifications are:
@@ -26,7 +26,7 @@ Close a KaiOS application (will call window.close()).
 TODO: Should we instead use sys.exit() and hook into the application lifecycle somehow through the extension and do a `window.close()`?
 
 ### kaios.play_sound(sound, options)
-Play a sound using JavaScript AudioContext. Sounds must be bundled using the "bundle resources" setting in game.project. Functionality for setting up an AudioContext and keeping track of audio buffers can be found in [`Defold.js`](https://github.com/refold/extension-kaios/blob/main/kaios/res/web/Defold.js) which is included with the extension.
+Play a sound using JavaScript AudioContext. Sounds must be bundled using the "bundle resources" setting in game.project. Functionality for setting up an AudioContext and keeping track of audio buffers can be found in [`Defold.js`](https://github.com/defold/extension-kaios/blob/main/kaios/res/web/Defold.js) which is included with the extension.
 
 ```
 -- play and loop sound
