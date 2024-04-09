@@ -78,22 +78,10 @@
 	<script id='engine-loader' type='text/javascript' src="dmloader.js"></script>
 	<!-- -->
 	<script id='engine-setup' type='text/javascript'>
-	var extra_params = {
-		archive_location_filter: function( path ) {
-			return ("{{DEFOLD_ARCHIVE_LOCATION_PREFIX}}" + path + "{{DEFOLD_ARCHIVE_LOCATION_SUFFIX}}");
-		},
-		engine_arguments: [{{#DEFOLD_ENGINE_ARGUMENTS}}"{{.}}",{{/DEFOLD_ENGINE_ARGUMENTS}}],
-		custom_heap_size: {{DEFOLD_HEAP_SIZE}},
-		full_screen_container: "#canvas-container",
-		disable_context_menu: true
-	}
-
-	Module['INITIAL_MEMORY'] = extra_params.custom_heap_size;
-
 	Module['isWASMSupported'] = false;
 
 	Module['onRuntimeInitialized'] = function() {
-		Module.runApp("canvas", extra_params);
+		Module.runApp("canvas");
 	};
 
 	Module["locateFile"] = function(path, scriptDirectory)
