@@ -11,7 +11,7 @@ var KaiOSLibrary = {
             console.log("keydown", event);
             {{{ makeDynCall("vii", "Context.listener") }}} (
                 1,
-                allocate(intArrayFromString(event.key), ALLOC_STACK)
+                stringToUTF8OnStack(event.key)
             );
         }, { passive: false });
 
@@ -19,11 +19,11 @@ var KaiOSLibrary = {
             console.log("keyup", event);
             {{{ makeDynCall("vii", "Context.listener") }}} (
                 0,
-                allocate(intArrayFromString(event.key), ALLOC_STACK)
+                stringToUTF8OnStack(event.key)
             );
         }, { passive: false });
     }
 }
 
 autoAddDeps(KaiOSLibrary, "$Context");
-mergeInto(LibraryManager.library, KaiOSLibrary);
+addToLibrary(KaiOSLibrary);
